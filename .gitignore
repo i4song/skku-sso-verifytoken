@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### licence ###
+/src/**/java/**/licence.txt
