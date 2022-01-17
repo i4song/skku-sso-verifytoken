@@ -2,11 +2,15 @@ package edu.skku.ssopackage;
 
 import SafeIdentity.SSO;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api")
 public class RESTApi {
     @Value("${sApiKey}")
     String sApiKey;
@@ -15,12 +19,17 @@ public class RESTApi {
     @Value("${ssoAgentPort}")
     Integer ssoAgentPort;
 
+    SSO sso = new SSO(sApiKey);
+
     @PostMapping("/verifyToken")
-    public int verifyToken(@RequestBody String ssoToken) {
-        SSO sso = new SSO(sApiKey);
+    public ResponseEntity<VerifyResponseDto> verifyToken(@RequestBody String ssoToken) {
         sso.setHostName(ssoAgentIp);
         sso.setPortNumber(ssoAgentPort);
 
-        return sso.verifyToken(ssoToken);
+        Integer nResult = sso.verifyToken(ssoToken);
+
+        VerifyResponseDto verifyResponseDto = new VerifyResponseDto(nResult);
+
+        return new ResponseEntity<>(verifyResponseDto, HttpStatus.ACCEPTED);
     }
 }
