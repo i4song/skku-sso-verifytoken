@@ -1,0 +1,3 @@
+sApiKey=368B184727E89AB69FAF
+ssoAgentIp=10.1.5.22
+ssoAgentPort=7000
