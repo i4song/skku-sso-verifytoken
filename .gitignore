@@ -32,5 +32,5 @@ build/
 ### VS Code ###
 .vscode/
 
-### licence ###
-/src/**/java/**/licence.txt
+### Security ###
+application.properties
